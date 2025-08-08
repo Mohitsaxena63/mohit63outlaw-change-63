@@ -37,6 +37,12 @@
             --transition: all 0.3s ease;
         }
 
+        /* Performance optimizations */
+        html {
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text);
@@ -45,19 +51,25 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            /* Optimize background rendering */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
-        /* Add a subtle pattern overlay */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234361ee' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-            z-index: -1;
+        /* Disable background pattern on mobile */
+        @media (min-width: 769px) {
+            body::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234361ee' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+                opacity: 0.3;
+                z-index: -1;
+            }
         }
 
         h1,
@@ -115,6 +127,9 @@
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            /* Optimize button rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .btn::before {
@@ -157,6 +172,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            /* Optimize header rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .navbar {
@@ -300,6 +318,7 @@
             max-width: 550px;
             border-radius: 20px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            /* Only enable animation on desktop */
             animation: float 6s ease-in-out infinite;
         }
 
@@ -361,6 +380,10 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(67, 97, 238, 0.1);
+            /* Optimize card rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         .feature-card::before {
@@ -433,6 +456,10 @@
             transition: var(--transition);
             position: relative;
             border: 1px solid rgba(67, 97, 238, 0.1);
+            /* Optimize card rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         .subject-card:hover {
@@ -584,6 +611,10 @@
             position: relative;
             transition: var(--transition);
             border: 1px solid rgba(67, 97, 238, 0.1);
+            /* Optimize card rendering */
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            will-change: transform;
         }
 
         .testimonial-card:hover {
@@ -758,6 +789,9 @@
             color: white;
             transition: var(--transition);
             font-size: 18px;
+            /* Optimize social links */
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .social-links a:hover {
@@ -882,6 +916,37 @@
                 width: 100%;
                 max-width: 300px;
                 text-align: center;
+            }
+
+            /* Disable animations on mobile */
+            .hero-image img {
+                animation: none;
+            }
+            
+            .feature-card:hover {
+                transform: none;
+            }
+            
+            .subject-card:hover {
+                transform: none;
+            }
+            
+            .testimonial-card:hover {
+                transform: none;
+            }
+            
+            /* Simplify gradients and shadows on mobile */
+            .feature-card, .subject-card, .testimonial-card {
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            }
+            
+            /* Disable complex background effects */
+            body {
+                background-attachment: scroll;
+            }
+            
+            .stats::before, .stats::after {
+                display: none;
             }
         }
 
@@ -1341,14 +1406,13 @@
                         <li><a href="https://mohit-online63.netlify.app/">Online Video</a></li>
                     </ul>
                 </div>
-                <!-- Look for the "Subjects" section in the footer -->
-<div class="footer-column">
-    <h3>Mohit ❤️</h3>
-    <ul class="footer-links">
-        <li><a href="https://micosoft-login-page-mohit.netlify.app/">Micosoft certificate</a></li>
-        <li><a href="https://mohitsaxena6363.github.io/mohit-collage-login-163/">My collage</a></li>
-    </ul>
-</div>
+                <div class="footer-column">
+                    <h3>Mohit ❤️</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://micosoft-login-page-mohit.netlify.app/">Micosoft certificate</a></li>
+                        <li><a href="https://mohitsaxena6363.github.io/mohit-collage-login-163/">My collage</a></li>
+                    </ul>
+                </div>
                 <div class="footer-column">
                     <h3>Subjects</h3>
                     <ul class="footer-links">
@@ -1359,21 +1423,20 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-    <h3>Coding</h3>
-    <ul class="footer-links">
-         <li><a href="https://mohitsaxena6363.github.io/mohit-html/">HTML</a></li>
-         <li><a href="https://mohitsaxena6363.github.io/mohit-python/">Python 🐍</a></li>
-         <li><a href="Java">Java ☕</a></li>
-        <li><a href="https://mohitsaxena63.github.io/mohit--Ms-word/">Microsoft Word</a></li>
-        <li><a href="https://mohitsaxena6363.github.io/mohit-photo63-/">Photo shop</a></li>
-        <li><a href="https://coreldraw-login.netlify.app/">Coreldraw</a></li>
-        <li><a href="https://micosoft-login-page-mohit.netlify.app/">Micosoft certificate</a></li>
-        <li><a href="#">Literature</a></li>
-        <li><a href="#">Technology</a></li>
-        <!-- New Business Studies link added below -->
-        <li><a href="#">Business Studies</a></li>
-    </ul>
-</div>
+                    <h3>Coding</h3>
+                    <ul class="footer-links">
+                         <li><a href="https://mohitsaxena6363.github.io/mohit-html/">HTML</a></li>
+                         <li><a href="https://mohitsaxena6363.github.io/mohit-python/">Python 🐍</a></li>
+                         <li><a href="Java">Java ☕</a></li>
+                        <li><a href="https://mohitsaxena63.github.io/mohit--Ms-word/">Microsoft Word</a></li>
+                        <li><a href="https://mohitsaxena6363.github.io/mohit-photo63-/">Photo shop</a></li>
+                        <li><a href="https://coreldraw-login.netlify.app/">Coreldraw</a></li>
+                        <li><a href="https://micosoft-login-page-mohit.netlify.app/">Micosoft certificate</a></li>
+                        <li><a href="#">Literature</a></li>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Business Studies</a></li>
+                    </ul>
+                </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
                     <ul class="footer-links">
@@ -1442,9 +1505,18 @@
         document.querySelectorAll('.feature-card, .subject-card, .testimonial-card').forEach(card => {
             observer.observe(card);
         });
+        
+        // Performance optimization: Disable hover effects on touch devices
+        function hasTouch() {
+            return 'ontouchstart' in document.documentElement || 
+                   navigator.maxTouchPoints > 0 || 
+                   navigator.msMaxTouchPoints > 0;
+        }
+        
+        if (hasTouch()) {
+            document.body.classList.add('touch-device');
+        }
     </script>
 </body>
 
 </html>
-
-
