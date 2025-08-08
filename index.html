@@ -41,7 +41,7 @@
             font-family: 'Inter', sans-serif;
             color: var(--text);
             background: linear-gradient(rgba(255, 255, 255, 0.603), rgba(255, 255, 255, 0.92)), 
-                        url('https://img.favpng.com/0/25/21/raksha-bandhan-raksha-bandhan-festival-illustration-DsDwpPxD_t.jpg') center/cover fixed;
+                        url('https://t4.ftcdn.net/jpg/06/13/18/51/360_F_613185170_mUuC1w49lLRuqinpw4qOfOjtQkReYNUC.jpg') center/cover fixed;
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
@@ -744,6 +744,7 @@
             display: flex;
             gap: 15px;
             margin-top: 25px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -809,10 +810,16 @@
 
             .hero-image {
                 justify-content: center;
+                margin-top: 40px;
             }
 
             .hero-image img {
                 max-width: 100%;
+            }
+            
+            .hero-image::before {
+                width: 110%;
+                height: 110%;
             }
         }
 
@@ -832,6 +839,7 @@
                 transition: 0.3s;
                 box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
                 padding: 30px 0;
+                z-index: 99;
             }
 
             .nav-links.active {
@@ -863,25 +871,37 @@
                 max-width: 90%;
                 padding: 60px 0;
             }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
         }
 
         @media (max-width: 576px) {
+            .hero {
+                padding: 80px 0 40px;
+            }
+            
             .hero h1 {
                 font-size: 2.2rem;
             }
 
             .hero p {
                 font-size: 1.1rem;
-            }
-
-            .hero-btns {
-                flex-direction: column;
-                width: 100%;
-                max-width: 300px;
+                padding: 0 10px;
             }
 
             .section-title h2 {
                 font-size: 2rem;
+                padding: 0 15px;
             }
 
             .stat-item .number {
@@ -891,9 +911,141 @@
             .cta h2 {
                 font-size: 2rem;
             }
-
+            
             .footer-content {
                 gap: 40px;
+            }
+            
+            .testimonial-card {
+                padding: 30px;
+            }
+            
+            .testimonial-content {
+                font-size: 16px;
+            }
+            
+            .feature-card, .subject-card {
+                padding: 30px 20px;
+            }
+            
+            .subject-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Mobile-specific fixes */
+        @media (max-width: 480px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                padding: 0 10px;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-btns .btn {
+                padding: 12px 24px;
+                font-size: 14px;
+                max-width: 100%;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title p {
+                padding: 0 15px;
+            }
+            
+            .feature-card, .subject-card, .testimonial-card {
+                padding: 25px 15px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .stat-item .number {
+                font-size: 2.2rem;
+            }
+            
+            .stat-item .label {
+                font-size: 1rem;
+            }
+            
+            .footer-column h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                top: 70px;
+            }
+            
+            .navbar {
+                padding: 15px 0;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .logo i {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .feature-card h3, .subject-content h3 {
+                font-size: 1.4rem;
+            }
+            
+            .feature-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+            
+            .subject-img {
+                height: 150px;
+                font-size: 50px;
+            }
+            
+            .testimonial-author {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .author-img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
         }
     </style>
@@ -1245,6 +1397,17 @@
 
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+            });
         });
 
         // Smooth scrolling for navigation links
@@ -1261,6 +1424,8 @@
 
                     // Close mobile menu if open
                     navLinks.classList.remove('active');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
                 }
             });
         });
